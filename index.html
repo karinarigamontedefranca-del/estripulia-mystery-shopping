@@ -32,24 +32,25 @@ body{transition:background-color .01s}
 /* ---------- background ---------- */
 #stars{position:fixed;inset:0;z-index:1;pointer-events:none}
 .mesh{position:fixed;inset:0;z-index:0;overflow:hidden}
-.blob{position:absolute;border-radius:50%;filter:blur(90px);will-change:transform;opacity:.95}
-.blob.a{width:55vmax;height:55vmax;left:-12vmax;top:-18vmax;background:var(--b1);animation:d1 18s ease-in-out infinite alternate}
-.blob.b{width:48vmax;height:48vmax;right:-14vmax;top:8vmax;background:var(--b2);animation:d2 22s ease-in-out infinite alternate}
-.blob.c{width:44vmax;height:44vmax;left:18vmax;bottom:-26vmax;background:var(--b3);animation:d3 20s ease-in-out infinite alternate;opacity:.8}
-.blob.d{width:30vmax;height:30vmax;right:10vmax;bottom:-10vmax;background:var(--b4);animation:d4 16s ease-in-out infinite alternate;opacity:.7}
+.blob{position:absolute;border-radius:50%;will-change:transform}
+.blob.a{width:55vmax;height:55vmax;left:-12vmax;top:-18vmax;background:radial-gradient(circle closest-side,var(--b1) 0%,transparent 100%);animation:d1 18s ease-in-out infinite alternate}
+.blob.b{width:48vmax;height:48vmax;right:-14vmax;top:8vmax;background:radial-gradient(circle closest-side,var(--b2) 0%,transparent 100%);animation:d2 22s ease-in-out infinite alternate}
+.blob.c{width:44vmax;height:44vmax;left:18vmax;bottom:-26vmax;background:radial-gradient(circle closest-side,var(--b3) 0%,transparent 100%);animation:d3 20s ease-in-out infinite alternate;opacity:.8}
+.blob.d{width:30vmax;height:30vmax;right:10vmax;bottom:-10vmax;background:radial-gradient(circle closest-side,var(--b4) 0%,transparent 100%);animation:d4 16s ease-in-out infinite alternate;opacity:.7}
 @keyframes d1{to{transform:translate(18vw,14vh) scale(1.15)}}
 @keyframes d2{to{transform:translate(-20vw,18vh) scale(.9)}}
 @keyframes d3{to{transform:translate(22vw,-16vh) scale(1.2)}}
 @keyframes d4{to{transform:translate(-18vw,-20vh) scale(1.1)}}
-.mesh-in{position:absolute;inset:0;transform:translate(calc(var(--mx)*-1.6vw),calc(var(--my)*-1.6vh))}
+.mesh-in{position:absolute;inset:0;will-change:transform}
+.blob.d{display:none}
 .grain{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.14;mix-blend-mode:overlay;
  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 
 /* ---------- mascot ---------- */
 .mascot{position:fixed;left:0;top:0;width:28vmin;height:28vmin;z-index:2;pointer-events:none;
   transition:transform 1.4s cubic-bezier(.7,0,.2,1)}
-.m-bob{position:relative;width:100%;height:100%;transform:translate(calc(var(--mx)*1.2vw),calc(var(--my)*1.2vh)) rotate(calc(var(--mx)*5deg))}
-.m-bob img{width:100%;height:100%;object-fit:contain;animation:bob 6s ease-in-out infinite;filter:drop-shadow(0 24px 40px rgba(0,0,0,.28))}
+.m-bob{position:relative;width:100%;height:100%;will-change:transform}
+.m-bob img{width:100%;height:100%;object-fit:contain;animation:bob 6s ease-in-out infinite}
 @keyframes bob{50%{transform:translateY(-3vmin) rotate(3deg)}}
 .m-ring{position:absolute;width:165%;height:165%;left:-32.5%;top:-32.5%;opacity:0;transition:opacity .8s .6s;animation:spin 30s linear infinite}
 .m-ring text{fill:var(--fg2);font-weight:800;font-size:25px;letter-spacing:0}
@@ -108,7 +109,7 @@ body{transition:background-color .01s}
 
 /* marquee */
 .marquee{overflow:hidden;white-space:nowrap;width:100%}
-.marquee .mq{display:inline-flex;animation:mq 26s linear infinite}
+.marquee .mq{will-change:transform;display:inline-flex;animation:mq 26s linear infinite}
 .marquee span{padding-right:1.2em}
 @keyframes mq{to{transform:translateX(-50%)}}
 .outline{color:transparent;-webkit-text-stroke:1.5px var(--fg2)}
@@ -266,11 +267,10 @@ body{transition:background-color .01s}
 .wipe.cover i{transition:none;transform:scaleY(1)}
 .pre{position:fixed;inset:0;z-index:130;background:#071a52;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3vh;color:var(--lime);overflow:hidden}
 .pre canvas{position:absolute;inset:0}
-.pre img{width:16vmin;animation:spin 3s linear infinite;position:relative;filter:drop-shadow(0 10px 30px rgba(0,0,0,.4))}
+.pre img{width:16vmin;animation:spin 3s linear infinite;position:relative}
 .pre .n{font-size:clamp(5rem,20vw,16rem);line-height:.8;font-weight:900;letter-spacing:-.07em;position:relative}
 .pre .br{color:#fff;position:relative}
-.cursor{position:fixed;left:0;top:0;z-index:300;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:#fff;mix-blend-mode:difference;pointer-events:none;transition:width .35s var(--ease),height .35s var(--ease),margin .35s var(--ease);display:none}
-.cursor.big{width:76px;height:76px;margin:-38px 0 0 -38px}
+.cursor{position:fixed;left:-9px;top:-9px;z-index:300;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 0 0 1.5px rgba(0,0,0,.3);opacity:.9;pointer-events:none;will-change:transform;display:none}
 @media (hover:hover) and (pointer:fine){body{cursor:none}.cursor{display:block}button,a,.row,.verb{cursor:none}}
 
 /* ---------- mobile ---------- */
@@ -605,7 +605,7 @@ body{transition:background-color .01s}
 </footer>
 
 <div class="wipe" id="wipe"></div>
-<div class="grain"></div>
+
 <div class="cursor" id="cursor"></div>
 
 <div class="pre" id="pre">
@@ -718,21 +718,30 @@ function startVerbs(){stopVerbs();hot(-1);setTimeout(()=>{hot(0);vt=setInterval(
 function stopVerbs(){clearInterval(vt);vt=null}
 verbs.forEach((v,k)=>{v.addEventListener('mouseenter',()=>{stopVerbs();hot(k)});v.addEventListener('mouseleave',()=>{vt=vt||setInterval(()=>hot((vi+1)%verbs.length),1400)})});
 
-/* ---- cursor + parallax ---- */
-const cu=$('#cursor'); let cx=innerWidth/2,cy=innerHeight/2,px=cx,py=cy;
-addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;
-  body.style.setProperty('--mx',((cx/innerWidth)*2-1).toFixed(3));body.style.setProperty('--my',((cy/innerHeight)*2-1).toFixed(3));});
-document.addEventListener('mouseover',e=>{cu.classList.toggle('big',!!e.target.closest('button,a,.row,.verb,.card,.panel'))});
-(function loop(){px+=(cx-px)*.2;py+=(cy-py)*.2;cu.style.transform=`translate(${px}px,${py}px)`;requestAnimationFrame(loop)})();
+/* ---- cursor + parallax (um único loop, só transform) ---- */
+const cu=$('#cursor'), meshIn=$('.mesh-in'), bob=$('.m-bob');
+let cx=innerWidth/2,cy=innerHeight/2,px=cx,py=cy,tmx=0,tmy=0,mx=0,my=0,sc=1,tsc=1;
+addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;tmx=cx/innerWidth*2-1;tmy=cy/innerHeight*2-1},{passive:true});
+document.addEventListener('mouseover',e=>{tsc=e.target.closest&&e.target.closest('button,a,.row,.verb,.card,.panel')?4:1},{passive:true});
+(function loop(){
+  px+=(cx-px)*.22;py+=(cy-py)*.22;sc+=(tsc-sc)*.2;mx+=(tmx-mx)*.06;my+=(tmy-my)*.06;
+  window.PX=mx;window.PY=my;
+  cu.style.transform=`translate3d(${px}px,${py}px,0) scale(${sc})`;
+  meshIn.style.transform=`translate3d(${-mx*1.6}vw,${-my*1.6}vh,0)`;
+  bob.style.transform=`translate3d(${mx*1.2}vw,${my*1.2}vh,0) rotate(${mx*5}deg)`;
+  requestAnimationFrame(loop);
+})();
 
 /* ---- starfield ---- */
 function starfield(cv,count,opts={}){
-  const ctx=cv.getContext('2d'); let W,H,D=Math.min(2,devicePixelRatio||1),stars=[],shoot=null;
+  const ctx=cv.getContext('2d'); let W,H,D=1,last=0,stars=[],shoot=null;
   function rs(){W=cv.width=innerWidth*D;H=cv.height=innerHeight*D;stars=[...Array(count)].map(()=>({x:Math.random()*W,y:Math.random()*H,r:(Math.random()*1.5+.4)*D,z:Math.random()*.9+.1,p:Math.random()*6.28,s:Math.random()*1.6+.4,big:Math.random()<.07}))}
   rs(); addEventListener('resize',rs);
   function draw(t){
+    if(!cv.isConnected||cv.dataset.stop)return; requestAnimationFrame(draw);
+    if(t-last<42)return; last=t;
     ctx.clearRect(0,0,W,H);
-    const mx=parseFloat(body.style.getPropertyValue('--mx')||0),my=parseFloat(body.style.getPropertyValue('--my')||0);
+    const mx=window.PX||0,my=window.PY||0;
     stars.forEach(s=>{
       const a=.35+.65*Math.abs(Math.sin(t/1000*s.s+s.p));
       const x=(s.x-mx*40*s.z*D+W)%W,y=(s.y-my*30*s.z*D+H)%H;
@@ -742,12 +751,11 @@ function starfield(cv,count,opts={}){
     });
     if(!shoot&&Math.random()<.004){shoot={x:Math.random()*W*.8,y:Math.random()*H*.4,l:0}}
     if(shoot){shoot.l+=14*D;const x=shoot.x+shoot.l,y=shoot.y+shoot.l*.45;const g=ctx.createLinearGradient(x,y,x-160*D,y-72*D);g.addColorStop(0,'rgba(255,255,255,.95)');g.addColorStop(1,'rgba(255,255,255,0)');ctx.globalAlpha=1;ctx.strokeStyle=g;ctx.lineWidth=2*D;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-160*D,y-72*D);ctx.stroke();if(shoot.l>W)shoot=null}
-    if(!cv.isConnected||cv.dataset.stop)return; requestAnimationFrame(draw);
   }
   requestAnimationFrame(draw);
 }
-starfield($('#stars'),150,{alpha:.85});
-const pcv=$('#prestars'); starfield(pcv,120);
+starfield($('#stars'),80,{alpha:.85});
+const pcv=$('#prestars'); starfield(pcv,60);
 
 /* ---- preloader ---- */
 const pn=$('#pn'), t0=performance.now(), DUR=2400;
